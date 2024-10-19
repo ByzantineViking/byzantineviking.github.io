@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React from "react";
 import * as d3 from "d3";
 import { FixedSizeList as List } from "react-window";
 
@@ -18,8 +18,10 @@ const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
     if (!data.length) return;
 
     const containerWidth = window.innerWidth < 600 ? window.innerWidth * 0.9 : width || 600;
+    const labelWidth = containerWidth * 0.35; // 40% of the container width
     const visibleBarsCount = 7;
-    const itemHeight = 40; // Height of each bar including padding
+    const itemHeight = 29; // Updated to 29px as requested
+    const barHeight = 17; // Height of each bar including padding
 
     const filteredData = data.filter(d => {
       const totalValue = +d.values[0];
@@ -29,21 +31,22 @@ const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
 
     const colors = d3.scaleOrdinal<string>()
         .domain(["children", "total"])
-        .range(["#1f77b4", "#ff7f0e"]);  
+        .range(["#7c59fa","#422c8f"]);  
 
     const renderRow = ({ index, style }: { index: number; style: React.CSSProperties }) => {
-      const d = filteredData
-      [index];
+      const d = filteredData[index];
   
       if (!d) return null;
   
-      console.log('------')
-      console.log(d.values)
+
+      // Convert to numbers
       const totalValue = +d.values[0];
       const childrenValue = +d.values[1];
-      console.log(childrenValue, totalValue)
       const percentage = (childrenValue / totalValue) * 100;
-      console.log(percentage)
+
+      const barWidth = containerWidth - labelWidth;
+      const childrenBarWidth = (percentage / 100) * barWidth;
+      const remainingBarWidth = barWidth - childrenBarWidth;
       
       if (totalValue === 0 && childrenValue === 0) {
         return null;
@@ -51,40 +54,51 @@ const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
       return (
         <div key={index} className="bar-row" style={{...style,  display: 'flex', alignItems: 'center', height: itemHeight }}>
           <svg width={containerWidth} height={itemHeight}>
+            {/* Label for municipality name */}
+            <text
+              x={5}
+              y={itemHeight / 2}
+              fill="white"
+              dominantBaseline="middle"
+              textAnchor="start"
+            >
+              {d.key[2]}
+            </text>
             {/* Children Bar */}
             <rect
-              x={0}
+              x={labelWidth}
               y={5}
-              width={(percentage / 100) * containerWidth}
-              height={30}
+              width={childrenBarWidth}
+              height={barHeight}
               fill={colors("children")}
+  
             />
             {/* Remaining Bar */}
             <rect
-              x={(percentage / 100) * containerWidth}
+              x={labelWidth + childrenBarWidth}
               y={5}
-              width={((totalValue - childrenValue) / totalValue) * containerWidth}
-              height={30}
+              width={remainingBarWidth}
+              height={barHeight}
               fill={colors("total")}
             />
-            {/* Label */}
+  
+            {/* Percentage label */}
             <text
-              x={containerWidth / 2}
+              x={labelWidth + childrenBarWidth + 5}
               y={itemHeight / 2 + 4}
               fill="white"
-              textAnchor="middle"
+              textAnchor="start"
             >
-              {`${percentage.toFixed(2)}% (${d.key[2]})`}
-            </text>
+            {`${percentage.toFixed(2)}%`}
+          </text>
           </svg>
         </div>
       );
     };
 
-    
 
   return (
-    <div style={{ width: containerWidth, height: height }}>
+    <div style={{ width: containerWidth , backgroundColor: "#120e3e" }}>
       <List
         height={visibleBarsCount * itemHeight} // Height is the number of visible bars * itemHeight
         itemCount={filteredData.length}
