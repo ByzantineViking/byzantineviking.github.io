@@ -13,11 +13,11 @@ interface BarChartProps {
   height?: number; // Optional height for responsiveness
 }
 
-const BarChart: React.FC<BarChartProps> = ({ data, width, height }) => {
+const BarChart: React.FC<BarChartProps> = ({ data }) => {
 
     if (!data.length) return;
 
-    const containerWidth = window.innerWidth < 600 ? window.innerWidth * 0.9 : width || 600;
+    const containerWidth = window.innerWidth < 600 ? window.innerWidth : 600;
     const labelWidth = containerWidth * 0.35; // 40% of the container width
     const visibleBarsCount = 7;
     const itemHeight = 29; // Updated to 29px as requested
