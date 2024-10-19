@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import viteLogo from '/vite.svg'
+import pacifier from '/pacifier.png'
 import './App.css'
 import lastentarha from '../data/lastentarha_with_labels.json'
 import BarChart, { DataPoint } from './components/StackedBarChart';
@@ -37,9 +37,9 @@ function App() {
           }}
         >
           <img 
-            src={viteLogo} 
-            className="logo" 
-            alt="Vite logo" 
+            src={pacifier} 
+            className="maracas" 
+            alt="Maracas" 
             width={iconSize} 
             height={iconSize}
           />
@@ -135,6 +135,7 @@ function App() {
       </div>
       </div>
   <Lorem />
+  <a href="https://www.flaticon.com/free-icons/pacifier" title="pacifier icons">Pacifier icons created by Luvdat - Flaticon</a>
   </div>
  )
 }
