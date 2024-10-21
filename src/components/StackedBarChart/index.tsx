@@ -4,7 +4,7 @@ import { FixedSizeList as List } from "react-window";
 
 export interface DataPoint {
   key: string[]; // [year, code, municipality_name]
-  values: string[]; // [foreign_lang, total]
+  values: number[]; // [foreign_lang, total]
 }
 
 interface BarChartProps {
@@ -24,8 +24,8 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
     const barHeight = 17; // Height of each bar including padding
 
     const filteredData = data.filter(d => {
-      const totalValue = +d.values[0];
-      const childrenValue = +d.values[1];
+      const totalValue = d.values[0];
+      const childrenValue = d.values[1];
       return !(totalValue === 0 && childrenValue === 0);
     });
 
@@ -40,8 +40,8 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
   
 
       // Convert to numbers
-      const totalValue = +d.values[0];
-      const childrenValue = +d.values[1];
+      const totalValue = d.values[0];
+      const childrenValue = d.values[1];
       const percentage = (childrenValue / totalValue) * 100;
 
       const barWidth = containerWidth - labelWidth;
@@ -62,7 +62,7 @@ const BarChart: React.FC<BarChartProps> = ({ data }) => {
               dominantBaseline="middle"
               textAnchor="start"
             >
-              {d.key[2]}
+              {d.key[3]}
             </text>
             {/* Children Bar */}
             <rect

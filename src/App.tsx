@@ -1,23 +1,23 @@
 import { useState } from 'react'
 import pacifier from '/pacifier.png'
 import './App.css'
-import lastentarha from '../data/lastentarha_with_labels.json'
+import kindergarten from '../data/processed_output.json'
 import BarChart, { DataPoint } from './components/StackedBarChart';
 import Select from 'react-select'
 import Lorem from './components/lorem';
 
 
 function App() {
-  const lastentarhaData: DataPoint[] = lastentarha.data
+  const kindergartenData: DataPoint[] = kindergarten.data
   const [selectedMunicipality, setSelectedMunicipality] = useState<string>("");
 
 
-  const municipalities = [...new Set(lastentarhaData.map(d => d.key[2]))].sort();
+  const municipalities = [...new Set(kindergartenData.map(d => d.key[3]))].sort();
   const selectOptions = municipalities.map(m => ({ value: m, label: m }));
  // Get statistics for selected municipality
- const selectedRaw = lastentarhaData.find(d => d.key[2] === selectedMunicipality);
- const childrenCount = +selectedRaw?.values[1]
- const totalCount = +selectedRaw?.values[0]
+ const selectedRaw = kindergartenData.find(d => d.key[3] === selectedMunicipality);
+ const childrenCount = selectedRaw?.values[1] || 0
+ const totalCount = selectedRaw?.values[0] || 0
  const percentage = childrenCount / totalCount * 100  || 0
 
  const iconSize = 100; // Assuming the icon is 100px tall
@@ -96,16 +96,16 @@ function App() {
                 <h3>Koko maa</h3>
                 <div className="flex flex-col items-center">
                   <span className="text-xs text-slate-400">Vieraskieliset lapset</span>
-                  <span className="text-lg font-bold text-white">{lastentarhaData[0].values[1]}</span>
+                  <span className="text-lg font-bold text-white">{kindergartenData[0].values[1]}</span>
                 </div>
                 <div className="flex flex-col items-center">
                   <span className="text-xs text-slate-400">Lapsia yhteensä</span>
-                  <span className="text-lg font-bold text-white">{lastentarhaData[0].values[0]}</span>
+                  <span className="text-lg font-bold text-white">{kindergartenData[0].values[0]}</span>
                 </div>
                 <div className="flex flex-col items-center">
                   <span className="text-xs text-slate-400">Osuus</span>
                   {/* Round to 1 decimal */}
-                  <span className="text-lg font-bold text-white">{(+lastentarhaData[0].values[1]/+lastentarhaData[0].values[0]*100).toFixed(1)}%</span>
+                  <span className="text-lg font-bold text-white">{(+kindergartenData[0].values[1]/+kindergartenData[0].values[0]*100).toFixed(1)}%</span>
                 </div>
                 
               
@@ -131,7 +131,7 @@ function App() {
 
 
 
-      <BarChart data={lastentarhaData} height={400}/>
+      <BarChart data={kindergartenData} height={400}/>
       </div>
       </div>
   <Lorem />
