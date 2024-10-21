@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import pacifier from '/pacifier.png'
+import pacifier from './pacifier.png'
 import './App.css'
 import kindergarten from '../data/processed_output.json'
 import BarChart, { DataPoint } from './components/StackedBarChart';
@@ -14,15 +14,13 @@ function App() {
 
   const municipalities = [...new Set(kindergartenData.map(d => d.key[3]))].sort();
   const selectOptions = municipalities.map(m => ({ value: m, label: m }));
- // Get statistics for selected municipality
- const selectedRaw = kindergartenData.find(d => d.key[3] === selectedMunicipality);
- const childrenCount = selectedRaw?.values[1] || 0
- const totalCount = selectedRaw?.values[0] || 0
- const percentage = childrenCount / totalCount * 100  || 0
+  // Get statistics for selected municipality
+  const selectedRaw = kindergartenData.find(d => d.key[3] === selectedMunicipality);
+  const childrenCount = selectedRaw?.values[1] || 0
+  const totalCount = selectedRaw?.values[0] || 0
+  const percentage = childrenCount / totalCount * 100  || 0
 
  const iconSize = 100; // Assuming the icon is 100px tall
-  const paddingTop = iconSize / 2 + 10;
-
 
   // Changing padding for breakpoints sm 640px, md 768px, lg	1024px
  return (
@@ -140,4 +138,4 @@ function App() {
  )
 }
 
-export default App
+export default App;

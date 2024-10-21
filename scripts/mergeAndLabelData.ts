@@ -41,7 +41,7 @@ export function sumOverAges(kindergartens: KindergartenDataRaw[]) {
 }
 
 
-export function addLabels(summedOverAges: SummedOverAges, municipalities) {
+export function addLabels(summedOverAges: SummedOverAges, municipalities: Municipality[]) {
     // Transform the grouped data back to the original format
     const result: KindergartenData = {
         data: []
@@ -74,7 +74,7 @@ export function addLabels(summedOverAges: SummedOverAges, municipalities) {
  * Adds municipality name to data.
  * Reduces together different aged children for each municipality code.
  */
-function processJsonData(kindergartenPath, municipalityPath, outputPath) {
+function processJsonData(kindergartenPath: string, municipalityPath: string, outputPath: string) {
         // Read input files
     const kindergartens = JSON.parse(readFileSync(kindergartenPath, 'utf8'));
     const municipalitiesRaw = JSON.parse(readFileSync(municipalityPath, 'utf8'));
