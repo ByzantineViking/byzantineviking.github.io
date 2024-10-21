@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import pacifier from './pacifier.png'
+import pacifier from '/pacifier.png'
 import './App.css'
 import kindergarten from '../data/processed_output.json'
 import BarChart, { DataPoint } from './components/StackedBarChart';
