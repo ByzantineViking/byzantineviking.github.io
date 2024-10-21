@@ -4,9 +4,11 @@ Koneella pystyy tarkastelemaan vieraskielisten päiväkotilasten määrää eri 
 
 Päiväkotilapsiksi lasketaan tässä 0--5 -vuotiaat lapset. (9kk voivat aloittaa päiväkodin, ja lapset yleensä siirtyvät esiopetukseen sinä vuonna, kun täyttävät 6 vuotta)
 
+## Testaa
 
+[Lastentarha-kone](https://byzantineviking.github.io/)
 
-## Käyttö
+## Käyttö paikallisesti
 Asenna kirjastot
 
     npm install
