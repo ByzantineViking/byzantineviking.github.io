@@ -24,9 +24,9 @@ function App() {
 
   // Changing padding for breakpoints sm 640px, md 768px, lg	1024px
  return (
-  <div>
+  <div className="lg:container lg:mx-auto lg:px-64">
   <Lorem />
-    <div className="relative bg-[#120e3e] px-4 lg:px-8 pt-16 mt-16 pb-4">
+    <div className="relative bg-[#120e3e] px-4 lg:px-8 pt-16 mt-16 pb-4 mb-16">
       {/* Icon container */}
       <div 
           className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2"
@@ -85,7 +85,7 @@ function App() {
           />
           
             <div 
-              className="grid gap-2 p-2 bg-[#422c8f] rounded-lg"
+              className="grid gap-2 p-2 bg-[#422c8f] rounded-lg items-center"
               style={{ 
                 gridTemplateColumns: 'repeat(4, 1fr)',
                 width: '100%'
